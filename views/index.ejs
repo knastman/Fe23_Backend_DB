@@ -8,7 +8,10 @@
 <body>
     
     <p> <%= pageTitle; %></p>
-    <p> <%= dbData[0].fName; %></p>
+    <% dbData.forEach( row => {%>
+        <p> <%= row.fName; %> - <%= row.lName; %></p>
+    <% }); %>
+    
 
 </body>
 </html>
