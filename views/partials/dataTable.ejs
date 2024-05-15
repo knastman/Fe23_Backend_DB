@@ -1,0 +1,19 @@
+<% if(typeof dbData != 'undefined'){%>
+<table>
+    <% if(typeof dbDataHeaders != 'undefined' ){%>
+    <% dbDataHeaders.forEach( header => {%>
+        <th> <%= header[0]; %> </th>
+    <% }); %>
+    <% } %>
+<% dbData.forEach( row => {%>
+    <tr>
+    <% row.forEach( value => {%>
+    <td> 
+        <%= value; %>    
+    </td>
+    <% }); %>
+    </tr>
+<% }); %>
+
+</table>
+<% } %>
