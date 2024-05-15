@@ -4,14 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../public/style/style.css" >
 </head>
 <body>
     
+    <form action="/" method="POST">
+        table name: <input type="text" name="table_name" >
+        <button type="submit">Get Table</button>
+    </form>
+
     <p> <%= pageTitle; %></p>
+    <table>
+        <% dbDataHeaders.forEach( header => {%>
+            <th> <%= header[0]; %> </th>
+        <% }); %>
     <% dbData.forEach( row => {%>
-        <p> <%= row.fName; %> - <%= row.lName; %></p>
+        <tr>
+        <% row.forEach( value => {%>
+        <td> 
+            <%= value; %>    
+        </td>
+        <% }); %>
+        </tr>
     <% }); %>
+    </table>
     
+
+
+
 
 </body>
 </html>
