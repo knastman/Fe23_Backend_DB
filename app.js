@@ -41,10 +41,7 @@ app.post('/', async (req, res) => {
     currentTable = tableName.table_name
     const dbData = await db.query(sql);
     console.log(dbData);
-    const sql2 = `DESCRIBE ${tableName.table_name}`;
-    const dbDataHeaders = await db.query(sql2);
-    console.log(dbDataHeaders);
-    res.render('index', {pageTitle, dbData, dbDataHeaders} );
+    res.render('index', {pageTitle, dbData} );
 });
 
 app.get('/removeData', async (req, res) => {
