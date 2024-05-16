@@ -16,6 +16,8 @@ app.set('view engine', 'ejs');
 
 // Set up body parser middleware to parse URL-encoded form data
 app.use(bodyParser.urlencoded({ extended: true }));
+// Use body-parser middleware to send JSON data
+app.use(bodyParser.json());
 
 ////////////////Routing
 
@@ -74,6 +76,40 @@ app.post('/removeData', async (req, res) => {
     res.render('removeData', {pageTitle, dbData, dbDataHeaders} );
 });
 
+//return Json table data
+app.get('/plants', async (req, res) => {
+    const pageTitle = "Dynamic webpage";
+    let sql = "";
+    const {id} = req.query;
+    console.log(id);
+    if(id){
+        sql = `SELECT * FROM plants WHERE id = ${id}`;
+    }else{
+        sql = `SELECT * FROM plants`;
+    }
+    const dbData = await db.query(sql);
+    console.log(dbData);
+    res.json(dbData);
+});
+
+app.get('/plants/:id/:col', async (req, res) => {
+    const pageTitle = "Dynamic webpage";
+    let sql = `SELECT ${req.params.col} FROM plants WHERE id = ${req.params.id}`;
+    const dbData = await db.query(sql);
+    res.json(dbData);
+});
+
+app.get('/students', async (req, res) => {
+    let sql = `SELECT * FROM students`;
+    const dbData = await db.query(sql);
+    res.json(dbData);
+});
+
+app.get('/students/:id', async (req, res) => {
+    let sql = `SELECT * FROM students WHERE id=${req.params.id}`;
+    const dbData = await db.query(sql);
+    res.json(dbData);
+});
 
 
 //server configuration
