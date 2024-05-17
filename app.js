@@ -82,7 +82,6 @@ app.post('/removeData', async (req, res) => {
 
 //return Json table data
 app.get('/plants', async (req, res) => {
-    const pageTitle = "Dynamic webpage";
     let sql = "";
     const {id} = req.query;
     console.log(id);
@@ -97,7 +96,6 @@ app.get('/plants', async (req, res) => {
 });
 
 app.get('/plants/:id/:col', async (req, res) => {
-    const pageTitle = "Dynamic webpage";
     let sql = `SELECT ${req.params.col} FROM plants WHERE id = ${req.params.id}`;
     const dbData = await db.query(sql);
     res.json(dbData);
