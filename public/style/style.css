@@ -1,3 +1,8 @@
 body {
     background-color: blue;
 }
+
+li a{
+    display: block;
+    width: 60px;
+    }

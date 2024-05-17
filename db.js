@@ -1,4 +1,5 @@
-const mysql = require("mysql2");//must be installed with npm
+//const mysql = require("mysql2");//must be installed with npm
+import mysql from "mysql2";
 
 // Create a pool of database connections
 const pool = mysql.createPool({
@@ -6,16 +7,16 @@ const pool = mysql.createPool({
     port: '3306',
     user: 'root',
     password: '',
-    database: 'gritacademy',
+    database: 'garden',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    rowsAsArray: true,
+//    rowsAsArray: true,
 
   });
   // Export a function to execute SQL queries
-module.exports = {
-    query: (sql, values) => {
+export function 
+    query(sql, values){
       return new Promise((resolve, reject) => {
         pool.query(sql, values, (err, results) => {
           if (err) {
@@ -25,4 +26,4 @@ module.exports = {
         });
       });
     }
-  };
+  
