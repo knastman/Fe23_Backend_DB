@@ -34,6 +34,31 @@ app.get('/', async (req, res) => {
     console.log(dbData);
     res.render('index', {pageTitle, dbData} );
 });
+app.get('/exempel', async (req, res) => {
+    //res.send("hello World");//serves index.html
+    //
+    let cols = ["first","second","one","4","c"]
+    let buildQuery = (cols) => {
+        let colQuery = "";
+        for (let i = 0; i < cols.length; i++) {
+            if(i<cols.length-1){    
+                colQuery+=cols[i]+",";
+            }else{
+                colQuery+=cols[i]
+            }     
+        }
+        let queryStart = "INSERT INTO(" + colQuery + ") WHERE fdsaf";
+        console.log(queryStart);
+    }
+    buildQuery(cols);
+
+    //
+    const pageTitle = "Dynamic webpage";
+    const sql = 'SHOW tables';
+    const dbData = await db.query(sql);
+    console.log(dbData);
+    res.render('index', {pageTitle, dbData} );
+});
 
 let currentTable;
 app.post('/', async (req, res) => {
@@ -81,14 +106,14 @@ app.post('/removeData', async (req, res) => {
 });
 
 //return Json table data
-app.get('/plants', async (req, res) => {
+app.get('/students', async (req, res) => {
     let sql = "";
     const {id} = req.query;
     console.log(id);
     if(id){
-        sql = `SELECT * FROM plants WHERE id = ${id}`;
+        sql = `SELECT * FROM students WHERE id = ${id}`;
     }else{
-        sql = `SELECT * FROM plants`;
+        sql = `SELECT * FROM students`;
     }
     const dbData = await db.query(sql);
     console.log(dbData);
@@ -101,17 +126,6 @@ app.get('/plants/:id/:col', async (req, res) => {
     res.json(dbData);
 });
 
-app.get('/students', async (req, res) => {
-    let sql = `SELECT * FROM students`;
-    const dbData = await db.query(sql);
-    res.json(dbData);
-});
-
-app.get('/students/:id', async (req, res) => {
-    let sql = `SELECT * FROM students WHERE id=${req.params.id}`;
-    const dbData = await db.query(sql);
-    res.json(dbData);
-});
 
 
 //server configuration
