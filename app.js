@@ -1,15 +1,20 @@
 //in dev run nodemon with for instant reload
 //add requiered library 
-const express = require('express'); //must be installed with npm
-const ejs = require('ejs'); //must be installed with npm
-const db = require('./db.js'); // Import the database module
-const bodyParser = require('body-parser');//must be installed with npm
+//const express =  require('express'); //must be installed with npm
+import express from "express";
+//const ejs = require('ejs'); //must be installed with npm
+import ejs from "ejs";
+//const db = require('./db.js'); // Import the database module
+import * as db from "./db.js"
+//const bodyParser = require('body-parser');//must be installed with npm
+import bodyParser from "body-parser";
+
 
 //create variable representing express
 const app = express();
 
 //set public folder for static web pages
-app.use(express.static('../public/style/style.css'));
+app.use(express.static('public'));
 
 //set dynamic web pages, set views and engine
 app.set('view engine', 'ejs');
@@ -38,12 +43,14 @@ app.post('/', async (req, res) => {
     const sql = `SELECT * FROM ${tableName.table_name}`;
     currentTable = tableName.table_name
     const dbData = await db.query(sql);
-    console.log(dbData);
+    console.log(dbData.error);
     const sql2 = `DESCRIBE ${tableName.table_name}`;
     const dbDataHeaders = await db.query(sql2);
     console.log(dbDataHeaders);
     res.render('index', {pageTitle, dbData, dbDataHeaders, currentTable} );
 });
+
+
 
 app.get('/removeData', async (req, res) => {
     //res.send("hello World");//serves index.html
@@ -73,7 +80,6 @@ app.post('/removeData', async (req, res) => {
     //show webpage to the user
     res.render('removeData', {pageTitle, dbData, dbDataHeaders} );
 });
-
 
 
 //server configuration
